@@ -1,14 +1,21 @@
 # SNR
-This is a simple script, search-n-replcae (snr) to search in tiddler contents (including all fields) for a searchValue and replcae them with replaceValue.
-Tiddlywiki 5.1.18+, License: MIT
+This is a simple script, search-n-replace (''SNR'') to search in tiddler contents (including all fields) for a searchValue and replace them with replaceValue.
+
 
 # Install
-Open the wiki and simply drag and drop the below tiddler into your wiki
-` $:/.mr/macro/snr`
+Simply drag and drop the below tiddler into your wiki
 
-    
-# How to use
+* [[$:/plugins/.mr/snr]]
 
+
+# Setup UI
 In any tiddler you like put the below macro call
 
-`  <<replace-text-ui>>`
+```
+<<snr-ui>>
+```
+
+
+# Demo
+A working demo has been given in [[Demo]]
+
