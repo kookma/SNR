@@ -1,0 +1,120 @@
+author: Mohammad Rahmani
+core-version: 5.1.19
+created: 20190307111946745
+creator: Mohammad
+description: Search-n-Replace (SNR)
+list: readme usage license authors
+modified: 20190307112007670
+modifier: Mohammad
+plugin-type: plugin
+title: $:/plugins/.mr/snr
+type: application/json
+version: 1.0.0
+
+{
+    "tiddlers": {
+        "$:/plugins/.mr/snr/stylesheet/form": {
+            "created": "20190306191714819",
+            "creator": "Mohammad",
+            "text": ".snr-form{\n  width:100%;\n}\n\n.snr-textbox {\n  width:100%;\n  box-sizing: border-box;\n  max-width:40ch;\n  }\n\n.snr-form select, .snr-form input{\n  margin: 0.2rem;\n}\n.snr-form legend{\n  background: #f5f5f5;\n  padding: 3px 6px;\n}\n\n.snr-form { padding:20px; }\n.snr-form .item { padding: 2px; margin:2px; }\n.snr-form .item label { display:inline-block; width:100px; margin-left:5px; }\n.snr-form .item input { display:inline-block; }\n.snr-form .item select { display:inline-block; }\n\n\n\n     ",
+            "type": "text/css",
+            "title": "$:/plugins/.mr/snr/stylesheet/form",
+            "tags": "$:/tags/Stylesheet",
+            "modifier": "Mohammad",
+            "modified": "20190307111005642"
+        },
+        "$:/plugins/.mr/snr/stylesheet/flexbox": {
+            "created": "20190306203517655",
+            "creator": "Mohammad",
+            "text": ".snr-row {\n  display: flex;\n  flex-direction: row;\n  flex-wrap: wrap;\n  width: 100%;\n}\n.snr-column {\n  display: flex;\n  flex-direction: column;\n  flex-basis: 100%;\n  flex: 1\n}\n\n.snr-double-column {\n  display: flex;\n  flex-direction: column;\n  flex-basis: 100%;\n  flex: 2\n}\n\n@media screen and (min-width: 800px) {\n  .snr-column {\n    flex: 1\n  }\n\n  .snr-double-column {\n    flex: 2\n  }\n}",
+            "type": "text/css",
+            "title": "$:/plugins/.mr/snr/stylesheet/flexbox",
+            "tags": "$:/tags/Stylesheet",
+            "modifier": "Mohammad",
+            "modified": "20190307111005642"
+        },
+        "$:/plugins/.mr/snr/readme": {
+            "created": "20190212050942506",
+            "creator": "Mohammad",
+            "text": "* SNR\n<<<\nThis is a simple script, search-n-replace (''SNR'') to search in tiddler contents (including all fields) for a search-Value and replace them with replace-Value. SNR supports regexp pattern to make search.\n<<<\n\n* UI\n<<<\nTo use SNR  simply put the below command in an empty tiddler.\n\n```\n<<snr-ui>>\n```\nThis will create the SNR user interface (UI).\n<<<",
+            "title": "$:/plugins/.mr/snr/readme",
+            "tags": "",
+            "modifier": "Mohammad",
+            "modified": "20190307135116006"
+        },
+        "$:/plugins/.mr/snr/macro/ui/regexp-flags": {
+            "created": "20190306182052441",
+            "creator": "Mohammad",
+            "text": "\\define snr-regexp-flags()\n\n<form class=\"snr-form\">\n<fieldset>\n<legend>Serach regexp flags</legend>\n\n<$checkbox \n  tiddler=\"$:/state/snr/case-sensitive\" \n  field=\"text\" \n  checked=\"i\" \n  unchecked=\"\"\n/>&nbsp; ignore case (i)\n\n<$checkbox \n  tiddler=\"$:/state/snr/whole-words\" \n  field=\"text\" \n  checked=\"words\" \n  unchecked=\"characters\"\n/>&nbsp; whole words\n\n<br>\n\n<$radio\n  tiddler=\"$:/state/snr/gm\" \n  field=\"text\" \n  value=\"g\">&nbsp; global match (g)\n</$radio><br>\n\n<$radio\n  tiddler=\"$:/state/snr/gm\" \n  field=\"text\" \n  value=\"m\">&nbsp; multiline mode (m)\n</$radio><br>\n\n<$radio\n  tiddler=\"$:/state/snr/gm\" \n  field=\"text\" \n  value=\"\">&nbsp; first match \n</$radio>\n\n</fieldset>\n</form>\n\\end",
+            "title": "$:/plugins/.mr/snr/macro/ui/regexp-flags",
+            "tags": "$:/tags/Macro",
+            "modifier": "Mohammad",
+            "modified": "20190307111005642"
+        },
+        "$:/plugins/.mr/snr/macro/ui/inputs": {
+            "created": "20190306203626597",
+            "creator": "Mohammad",
+            "text": "\\define snr-ui-inputs()\n<form class=\"snr-form\">\n  <fieldset>\n   <legend>Search and Replace</legend>\n\n<div class=\"item\">\n<label>Filter search</label>\n<$edit-text tiddler=\"$:/state/snr/search-filter\" tag=\"input\" default=\"\" placeholder=\" search filter\" class=\"snr-textbox\"/>\n</div>\n\n<div class=\"item\">\n<label>Tiddler title</label>\n<$select tiddler=\"$:/state/snr/select-tiddler\" default=\"\" class=\"snr-textbox\">\n<option value=\"\">None</option>\n<$list filter=\"[subfilter{$:/state/snr/search-filter}] +[sort[]]\">\n<option value=<<currentTiddler>>><$text text=<<currentTiddler>>/></option>\n</$list>\n</$select>\n</div>\n\n<div class=\"item\">\n<label>Field name</label>\n<$select tiddler=\"$:/state/snr/select-tiddler/field\" default=\"text\">\n<$list filter=\"[{$:/state/snr/select-tiddler}fields[]]\">\n<option value=<<currentTiddler>>>field: <$text text=<<currentTiddler>>/></option>\n</$list>\n</$select>\n</div>\n\n<div class=\"item\">\n<label>Search text</label>\n<$edit-text \n   tiddler=\"$:/state/snr/replace-text\" \n   tag=\"input\" \n   default=\"\" \n   placeholder=\" text to replace\"\n class=\"snr-textbox\"/>\n</div>\n<div class=\"item\">\n<label>Replace with </label>\n<$edit-text \n   tiddler=\"$:/state/snr/replace-text-with\" \n   tag=\"input\" \n   default=\"\" \n   placeholder=\" new text\"\n   class=\"snr-textbox\"/>\n</div>\n</fieldset>\n</form>\n\\end",
+            "title": "$:/plugins/.mr/snr/macro/ui/inputs",
+            "tags": "$:/tags/Macro",
+            "modifier": "Mohammad",
+            "modified": "20190307111005642"
+        },
+        "$:/plugins/.mr/snr/macro/ui": {
+            "created": "20190306133310512",
+            "creator": "Mohammad",
+            "text": "\\define regexp-flags()\n{{$:/state/snr/gm}}{{$:/state/snr/case-sensitive}}\n\\end\n\n\\define snr-ui-actions()\n<form class=\"snr-form\" style=\"width:100%;\">\n  <fieldset>\n   <legend style=\"color:#FF0000;\">Differences</legend>\nTiddler: <$link to={{$:/state/snr/select-tiddler}}><$text text={{$:/state/snr/select-tiddler}}/></$link>\n\n<$wikify name=flags text=<<regexp-flags>> >\n\n<$macrocall $name=\"replace-text-diff\" tiddler={{$:/state/snr/select-tiddler}} field={{$:/state/snr/select-tiddler/field}} replace={{$:/state/snr/replace-text}} replaceWith={{$:/state/snr/replace-text-with}} flags=<<flags>> wholeWords={{$:/state/snr/whole-words}}/>\n\n<$macrocall $name=\"replace-text-button\" tiddler={{$:/state/snr/select-tiddler}} field={{$:/state/snr/select-tiddler/field}} replace={{$:/state/snr/replace-text}} replaceWith={{$:/state/snr/replace-text-with}}  flags=<<flags>> wholeWords={{$:/state/snr/whole-words}}/>\n\n</$wikify>\n</fieldset>\n</form>\n\\end\n\n\n\\define snr-ui()\n\n<div class=\"snr-row\">\n<div class=\"snr-double-column\">\n<<snr-ui-inputs>>\n</div>\n<div class=\"snr-column\">\n<<snr-regexp-flags>>   \n</div>\n</div>\n<<snr-ui-actions>>\n\\end\n",
+            "title": "$:/plugins/.mr/snr/macro/ui",
+            "tags": "$:/tags/Macro",
+            "modifier": "Mohammad",
+            "modified": "20190307113525885"
+        },
+        "$:/plugins/.mr/snr/macro/replace-text": {
+            "created": "20190227134610136",
+            "creator": "Mohammad",
+            "text": "\\define nothing-to-replace(tiddler, field)  \n<$diff-text source={{{ [<__tiddler__>get<__field__>] }}} dest={{{ [<__tiddler__>get<__field__>] }}} />\n\\end\n\n\\define replace-text(tiddler:\"\",field:\"text\",replace:\"\",replaceWith:\"\",flags:\"\", wholeWords:\"\")\n\\whitespace trim\n<$wikify name=\"source\" text=\"\"\"<$view tiddler=<<__tiddler__>> field=<<__field__>> mode=\"block\" format=\"text\"/>\"\"\">\n<$wikify name=\"result\" \n  text=\"\"\"<$macrocall $name=\"regexpsub\" $type=\"text/plain\" \n     sourceText=<<source>> \n     searchValue=<<__replace__>> \n     replaceValue=<<__replaceWith__>> \n     flags=<<__flags__>> \n     wholeWords=<<__wholeWords__>> />\"\"\" \n     >\n<$text text=<<result>>/>\n</$wikify>\n</$wikify>\n\\end\n\n\\define replace-text-diff(tiddler:\"\", field:\"text\", replace, replaceWith, flags:\"\", wholeWords:\"\")\n<$list filter=\"[<__tiddler__>get<__field__>]minlength[1]]\" variable=null emptyMessage=\"No tiddler selected\">\n<$list filter=\"[<__replace__>minlength[1]]\" variable=null emptyMessage=<<nothing-to-replace \"\"\"$tiddler$\"\"\" \"\"\"$field$\"\"\">> >\n\n<$wikify name=\"result\" \n  text=\"\"\"<$macrocall $name=\"replace-text\" \n     tiddler=<<__tiddler__>> field=<<__field__>> \n     replace=<<__replace__>> \n     replaceWith=<<__replaceWith__>> \n     flags=<<__flags__>>\n     wholeWords=<<__wholeWords__>> />\"\"\"\n  >\n<$diff-text source={{{ [<__tiddler__>get<__field__>] }}} dest=<<result>> />\n</$wikify>\n\n</$list>\n</$list>\n\\end\n\n\\define replace-text-button(tiddler:\"\", field:\"text\", replace:\"\", replaceWith:\"\", flags:\"\", wholeWords:\"\")\n\\whitespace trim\n<$button>Replace?\n<$list filter=\"[<__tiddler__>get<__field__>]minlength[1]]\" variable=null>\n<$list filter=\"[<__replace__>minlength[1]]\" variable=null>\n\n<$wikify name=\"result\" \n  text=\"\"\"<$macrocall $name=\"replace-text\" \n     tiddler=<<__tiddler__>> \n     field=<<__field__>> \n     replace=<<__replace__>> \n     replaceWith=<<__replaceWith__>> \n     flags=<<__flags__>>\n     wholeWords=<<__wholeWords__>> />\"\"\"\n  >\n\n<$reveal type=\"nomatch\" default=\"title\" text=<<__field__>> >\n <$action-setfield $tiddler=<<__tiddler__>> $field=<<__field__>> $value=<<result>>/>\n</$reveal>\n\n<$reveal type=\"match\" default=\"title\" text=<<__field__>> >\n <$action-setfield $tiddler=<<__tiddler__>> $field=<<__field__>> $value=<<result>>/>\n <$action-deletetiddler $tiddler=<<__tiddler__>> />\n</$reveal>\n\n</$wikify>\n</$list>\n</$list>\n</$button>\n\\end\n",
+            "title": "$:/plugins/.mr/snr/macro/replace-text",
+            "tags": "$:/tags/Macro",
+            "modifier": "Mohammad",
+            "modified": "20190307134822222"
+        },
+        "$:/plugins/.mr/snr/macro/regexpsub": {
+            "created": "20190214160253135",
+            "creator": "Mohammad",
+            "text": "/*\\\ntitle: $:/commander/macro/regexpsub.js\ntype: application/javascript\nmodule-type: macro\n\nMake regular expression substitutions\n\n\\*/\n(function(){\n\n/*jslint node: true, browser: true */\n/*global $tw: false */\n\"use strict\";\n\nexports.name = \"regexpsub\";\n\nexports.params = [\n\t{name: \"searchValue\"},\n\t{name: \"replaceValue\"},\n\t{name: \"sourceText\"},\n\t{name: \"flags\"},\n    {name: \"wholeWords\"}\n];\n\n/*\nRun the macro\n*/\nexports.run = function(searchValue, replaceValue, sourceText, flags = \"gi\", wholeWords = \"characters\") {\n  \n  try {\n  \n\tvar searchText;\n    if(wholeWords.toLowerCase() === 'words'){\n    searchText = \"\\\\b\" + searchValue + \"\\\\b\";\n    } else{\n    searchText = searchValue;\n    }\n    searchText = new RegExp(searchText, flags);\n\n\t\n\treturn sourceText.replace(searchText,replaceValue);\n\n  } catch { return \"ERROR IN REG EXPRESSION. YOU MAY NEED TO ESCAPE VALUES\"; }\n  \n  };\n\n})();\n",
+            "type": "application/javascript",
+            "title": "$:/plugins/.mr/snr/macro/regexpsub",
+            "tags": "snr",
+            "module-type": "macro",
+            "modifier": "Mohammad",
+            "modified": "20190307111005641",
+            "description": "Developed by Mark S"
+        },
+        "$:/plugins/.mr/snr/license": {
+            "created": "20181101134530634",
+            "creator": "Mohammad",
+            "text": "Distributed under an MIT license.\n\nCopyright (c) 2018-2019 [[Mohammad Rahmani|https://github.com/kookma]]\n\n<<<\nPermission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.\n<<<\n",
+            "type": "application/x-tiddler",
+            "title": "$:/plugins/.mr/snr/license",
+            "modifier": "Mohammad",
+            "modified": "20190307111005641"
+        },
+        "$:/plugins/.mr/snr/authors": {
+            "created": "20190228061947707",
+            "creator": "Mohammad",
+            "text": "* [[Mohammad Rahmani|https://github.com/kookma]]\n* [[Simon Huber|https://github.com/BurningTreeC]]\n* [[Mark S|https://github.com/marxal]]\n\n> Speciall thanks go to [[Jeremy Rutson|https://github.com/Jermolene]] for his clever solution in putting the JS macro output as raw text into a variable",
+            "title": "$:/plugins/.mr/snr/authors",
+            "modifier": "Mohammad",
+            "modified": "20190307112509687"
+        },
+        "$:/plugins/.mr/snr/usage": {
+            "created": "20190307104654008",
+            "creator": "Mohammad",
+            "text": "!! Setup UI\n<<<\nSimply put the below command inside an empty tiddler\n\n```\n<<replace-text-ui>>\n```\n<<<\n\n!! How to use?\n<<<\n* Enter a search filter in ''Filter search'' box like `[tag[myTag]]`\n* From ''Filter title'' drop down menu select a tiddler\n* From ''Field name'' drop down menu select a tiddler field like `text`\n* In the ''Search text'' type the search term for example `this`\n* In the ''Replace with'' type the term you want to replace with like `that`\n*Check the ''Differences'' and if you are satisfied with the result, press the `Replace?` button\n<<<\n\n!! Special characters\n<<<\nAs `SNR` uses ''regexp'' pattern to make search and replace, when special characters are used in the ''Search text'' box, they shall be escaped among them are `*`, `+`, `[`, ...\nTo use these characters do like below\n\n```\n\\[ \\* \\+\n```\n<<<\n\n!! Warning\n<<<\n* SNR replace the contents of tiddlers. //The action can not be undone//. So always make a backup before performing any replace action\n* It is not possible to selectively replace some occurrences and ignore some others in one run! That means you cannot skip some occurrences. \n<<<",
+            "title": "$:/plugins/.mr/snr/usage",
+            "tags": "",
+            "modified": "20190307113435934",
+            "modifier": "Mohammad"
+        }
+    }
+}
