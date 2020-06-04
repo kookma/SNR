@@ -3,9 +3,8 @@ This is a simple script, search-n-replace (''SNR'') to search in tiddler content
 
 
 # Install
-Simply drag and drop the below tiddler into your wiki
-
-* [[$:/plugins/.mr/snr]]
+ * Open https://kookma.github.io/SNR/
+ * Simply drag and drop the `$:/plugins/.mr/snr` tiddler into your wiki
 
 
 # Setup UI
@@ -17,8 +16,8 @@ In any tiddler you like put the below macro call
 
 
 # Demo
-A working demo has been given in [[Demo]]
+A working demo has been given in [Demo](https://kookma.github.io/SNR/)
 
 
 # TW-Commander
-SNR is now part of [Tiddler-Commander](https://github.com/kookma/TW-Commander)
+SNR is now part of [Tiddler-Commander](https://github.com/kookma/TW-Commander) so this repo will not update on a regular basis!
