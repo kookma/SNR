@@ -19,3 +19,6 @@ In any tiddler you like put the below macro call
 # Demo
 A working demo has been given in [[Demo]]
 
+
+# TW-Commander
+SNR is now part of [Tiddler-Commander](https://github.com/kookma/TW-Commander)
